@@ -14,10 +14,11 @@ jobs:
 
       - name: Fetch Total Repositories Count
         id: fetch_repos
+        env:
+          GH_TOKEN: ${{ secrets.METRIC_TOKEN }}
         run: |
-          # Mengambil total repo (termasuk private) menggunakan GitHub API & Token
-          TOTAL_REPOS=$(curl -s -H "Authorization: token ${{ secrets.METRIC_TOKEN }}" \
-            "https://api.github.com/user" | jq '.total_private_repos + .public_repos')
+          # Menggunakan GitHub CLI untuk menarik semua daftar repo lalu menghitung jumlahnya
+          TOTAL_REPOS=$(gh repo list --limit 1000 --json name --jq '. | length')
           echo "TOTAL=$TOTAL_REPOS" >> $GITHUB_OUTPUT
 
       - name: Update README.md
