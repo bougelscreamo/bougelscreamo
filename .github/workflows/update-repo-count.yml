@@ -21,9 +21,12 @@ jobs:
           TOTAL_REPOS=$(gh repo list --limit 1000 --json name --jq '. | length')
           echo "TOTAL=$TOTAL_REPOS" >> $GITHUB_OUTPUT
 
-          # 2. Ambil 10 repo teraktif (otomatis sorted by updated dari GitHub CLI)
+          # 2. Ambil data repo mentah dalam bentuk JSON
+          gh repo list --limit 10 --json name,updatedAt,isPrivate > repos.json
+
+          # 3. Proses JSON menggunakan jq dengan struktur array agar bebas error escaping
           echo -e "### 🔥 Top 10 Active Repositories (Past Year):\n<ul>" > top_repos.txt
-          gh repo list --limit 10 --json name,updatedAt,isPrivate --jq '.[] | "  <li><strong>\(.name)</strong> \(.isPrivate | if . then \"🔒 (Private)\" else \"🌐 (Public)\" end) — <em>Last active: \(.updatedAt[0:10])</em></li>"' >> top_repos.txt
+          jq -r '.[] | [ .name, (if .isPrivate then "🔒 (Private)" else "🌐 (Public)" end), .updatedAt[0:10] ] | "  <li><strong>\(.[0])</strong> \(.[1]) — <em>Last active: \(.[2])</em></li>"' repos.json >> top_repos.txt
           echo "</ul>" >> top_repos.txt
           
       - name: Update README.md
