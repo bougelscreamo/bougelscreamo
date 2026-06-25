@@ -7,7 +7,10 @@
 <!-- REPO_COUNT_START -->
 📊 **Total Repositories:** 62 (including private projects)
 <!-- REPO_COUNT_END -->
-
+<!-- TOP_REPOS_START -->
+### 🔥 Top 10 Active Repositories (Past Year):
+Loading active projects...
+<!-- TOP_REPOS_END -->
 <p align="center">
   <!-- GitHub Stats Card -->
   <img src="https://github-readme-stats.vercel.app/api?username=bougelscreamo&show_icons=true&theme=radical&count_private=true" alt="GitHub Stats" height="180" />
