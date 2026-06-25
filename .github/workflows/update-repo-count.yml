@@ -21,10 +21,11 @@ jobs:
           TOTAL_REPOS=$(gh repo list --limit 1000 --json name --jq '. | length')
           echo "TOTAL=$TOTAL_REPOS" >> $GITHUB_OUTPUT
 
-          # 2. Ambil 10 repo yang paling baru di-update dalam kurun waktu setahun terakhir
-          # Format output: - NamaRepo (Last updated: YYYY-MM-DD)
-          gh repo list --limit 10 --sort updated --json name,updatedAt,isPrivate --jq '.[] | "- **\(.name)** \(.isPrivate | if . then \"🔒 (Private)\" else \"🌐 (Public)\" end) — _Last active: \(.updatedAt[0:10])_"' > top_repos.txt
-
+          # 2. Ambil 10 repo teraktif (otomatis sorted by updated dari GitHub CLI)
+          echo -e "### 🔥 Top 10 Active Repositories (Past Year):\n<ul>" > top_repos.txt
+          gh repo list --limit 10 --json name,updatedAt,isPrivate --jq '.[] | "  <li><strong>\(.name)</strong> \(.isPrivate | if . then \"🔒 (Private)\" else \"🌐 (Public)\" end) — <em>Last active: \(.updatedAt[0:10])</em></li>"' >> top_repos.txt
+          echo "</ul>" >> top_repos.txt
+          
       - name: Update README.md
         run: |
           TOTAL_REPOS=${{ steps.fetch_metrics.outputs.TOTAL }}
