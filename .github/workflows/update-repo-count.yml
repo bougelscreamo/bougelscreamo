@@ -1,0 +1,36 @@
+name: Update Total Repositories Count
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Berjalan otomatis setiap hari sekali (tengah malam)
+  workflow_dispatch: # Memungkinkan kamu menjalankan workflow ini secara manual
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Total Repositories Count
+        id: fetch_repos
+        run: |
+          # Mengambil total repo (termasuk private) menggunakan GitHub API & Token
+          TOTAL_REPOS=$(curl -s -H "Authorization: token ${{ secrets.METRIC_TOKEN }}" \
+            "https://api.github.com/user" | jq '.total_private_repos + .public_repos')
+          echo "TOTAL=$TOTAL_REPOS" >> $GITHUB_OUTPUT
+
+      - name: Update README.md
+        run: |
+          TOTAL_REPOS=${{ steps.fetch_repos.outputs.TOTAL }}
+          
+          # Mengganti teks di antara placeholder dengan jumlah repo terbaru
+          sed -i "/<!-- REPO_COUNT_START -->/,/<!-- REPO_COUNT_END -->/c\<!-- REPO_COUNT_START -->\n📊 **Total Repositories:** $TOTAL_REPOS (including private projects)\n<!-- REPO_COUNT_END -->" README.md
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: update total repositories count"
+          git push
