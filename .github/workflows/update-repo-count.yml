@@ -1,9 +1,9 @@
-name: Update Total Repositories Count
+name: Update GitHub Profile Metrics
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Berjalan otomatis setiap hari sekali (tengah malam)
-  workflow_dispatch: # Memungkinkan kamu menjalankan workflow ini secara manual
+    - cron: '0 0 * * *' # Berjalan otomatis setiap hari sekali
+  workflow_dispatch: # Bisa dijalankan manual
 
 jobs:
   update-readme:
@@ -12,26 +12,40 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Fetch Total Repositories Count
-        id: fetch_repos
+      - name: Fetch Metrics from GitHub
+        id: fetch_metrics
         env:
           GH_TOKEN: ${{ secrets.METRIC_TOKEN }}
         run: |
-          # Menggunakan GitHub CLI untuk menarik semua daftar repo lalu menghitung jumlahnya
+          # 1. Hitung total keseluruhan repo
           TOTAL_REPOS=$(gh repo list --limit 1000 --json name --jq '. | length')
           echo "TOTAL=$TOTAL_REPOS" >> $GITHUB_OUTPUT
 
+          # 2. Ambil 10 repo yang paling baru di-update dalam kurun waktu setahun terakhir
+          # Format output: - NamaRepo (Last updated: YYYY-MM-DD)
+          gh repo list --limit 10 --sort updated --json name,updatedAt,isPrivate --jq '.[] | "- **\(.name)** \(.isPrivate | if . then \"🔒 (Private)\" else \"🌐 (Public)\" end) — _Last active: \(.updatedAt[0:10])_"' > top_repos.txt
+
       - name: Update README.md
         run: |
-          TOTAL_REPOS=${{ steps.fetch_repos.outputs.TOTAL }}
+          TOTAL_REPOS=${{ steps.fetch_metrics.outputs.TOTAL }}
           
-          # Mengganti teks di antara placeholder dengan jumlah repo terbaru
+          # Update total repo
           sed -i "/<!-- REPO_COUNT_START -->/,/<!-- REPO_COUNT_END -->/c\<!-- REPO_COUNT_START -->\n📊 **Total Repositories:** $TOTAL_REPOS (including private projects)\n<!-- REPO_COUNT_END -->" README.md
+
+          # Update daftar Top 10 Repo teraktif
+          sed -i '/<!-- TOP_REPOS_START -->/,/<!-- TOP_REPOS_END -->/ {
+            /<!-- TOP_REPOS_START -->/b
+            /<!-- TOP_REPOS_END -->/b
+            d
+          }' README.md
+          
+          # Memasukkan isi file top_repos.txt ke dalam penanda di README
+          sed -i '/<!-- TOP_REPOS_START -->/r top_repos.txt' README.md
 
       - name: Commit and Push Changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git diff --quiet && git diff --staged --quiet || git commit -m "chore: update total repositories count"
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: update profile metrics and top repos"
           git push
