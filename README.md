@@ -5,21 +5,21 @@
 
 ## 📊 GitHub Statistics:
 <!-- REPO_COUNT_START -->
-📊 **Total Repositories:** 62 (including private projects)
+📊 **Total Repositories:** 64 (including private projects)
 <!-- REPO_COUNT_END -->
 <!-- TOP_REPOS_START -->
 ### 🔥 Top 10 Active Repositories (Past Year):
 <ul>
+  <li><strong>PUSPA-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-05</em></li>
+  <li><strong>PUSPA-FE</strong> 🔒 (Private) — <em>Last active: 2026-07-05</em></li>
+  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-07-05</em></li>
   <li><strong>TeraCore-Agent</strong> 🔒 (Private) — <em>Last active: 2026-07-04</em></li>
   <li><strong>TeraCore-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-04</em></li>
   <li><strong>TeraCore-FE</strong> 🔒 (Private) — <em>Last active: 2026-07-04</em></li>
-  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-07-04</em></li>
   <li><strong>LimaERP-BE</strong> 🔒 (Private) — <em>Last active: 2026-06-20</em></li>
   <li><strong>LimaERP-FE</strong> 🔒 (Private) — <em>Last active: 2026-06-19</em></li>
   <li><strong>LimaERP-Wapi</strong> 🔒 (Private) — <em>Last active: 2026-06-04</em></li>
   <li><strong>LimaERP-Storage</strong> 🔒 (Private) — <em>Last active: 2026-06-04</em></li>
-  <li><strong>invys-api</strong> 🔒 (Private) — <em>Last active: 2026-05-29</em></li>
-  <li><strong>client</strong> 🔒 (Private) — <em>Last active: 2026-05-29</em></li>
 </ul>
 <!-- TOP_REPOS_END -->
 <p align="center">
