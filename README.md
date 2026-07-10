@@ -10,8 +10,8 @@
 <!-- TOP_REPOS_START -->
 ### 🔥 Top 10 Active Repositories (Past Year):
 <ul>
-  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-07-08</em></li>
-  <li><strong>TeraCore-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-08</em></li>
+  <li><strong>TeraCore-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-09</em></li>
+  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-07-09</em></li>
   <li><strong>TeraCore-FE</strong> 🔒 (Private) — <em>Last active: 2026-07-07</em></li>
   <li><strong>LimaERP-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-06</em></li>
   <li><strong>LimaERP-FE</strong> 🔒 (Private) — <em>Last active: 2026-07-06</em></li>
