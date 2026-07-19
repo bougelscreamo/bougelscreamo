@@ -10,7 +10,9 @@
 <!-- TOP_REPOS_START -->
 ### 🔥 Top 10 Active Repositories (Past Year):
 <ul>
-  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-07-17</em></li>
+  <li><strong>gms-server</strong> 🔒 (Private) — <em>Last active: 2026-07-18</em></li>
+  <li><strong>GMS</strong> 🔒 (Private) — <em>Last active: 2026-07-18</em></li>
+  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-07-18</em></li>
   <li><strong>LimaERP-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-14</em></li>
   <li><strong>LimaERP-FE</strong> 🔒 (Private) — <em>Last active: 2026-07-14</em></li>
   <li><strong>TeraCore-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-09</em></li>
@@ -18,8 +20,6 @@
   <li><strong>PUSPA-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-05</em></li>
   <li><strong>PUSPA-FE</strong> 🔒 (Private) — <em>Last active: 2026-07-05</em></li>
   <li><strong>TeraCore-Agent</strong> 🔒 (Private) — <em>Last active: 2026-07-04</em></li>
-  <li><strong>LimaERP-Wapi</strong> 🔒 (Private) — <em>Last active: 2026-06-04</em></li>
-  <li><strong>LimaERP-Storage</strong> 🔒 (Private) — <em>Last active: 2026-06-04</em></li>
 </ul>
 <!-- TOP_REPOS_END -->
 <p align="center">
