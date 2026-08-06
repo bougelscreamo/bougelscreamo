@@ -10,12 +10,12 @@
 <!-- TOP_REPOS_START -->
 ### 🔥 Top 10 Active Repositories (Past Year):
 <ul>
-  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-08-04</em></li>
+  <li><strong>LimaERP-FE</strong> 🔒 (Private) — <em>Last active: 2026-08-05</em></li>
+  <li><strong>LimaERP-BE</strong> 🔒 (Private) — <em>Last active: 2026-08-05</em></li>
+  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-08-05</em></li>
   <li><strong>TeraCMS-BE</strong> 🔒 (Private) — <em>Last active: 2026-08-02</em></li>
   <li><strong>TeraCMS</strong> 🔒 (Private) — <em>Last active: 2026-08-02</em></li>
   <li><strong>NusaNexa-web</strong> 🔒 (Private) — <em>Last active: 2026-08-02</em></li>
-  <li><strong>LimaERP-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-31</em></li>
-  <li><strong>LimaERP-FE</strong> 🔒 (Private) — <em>Last active: 2026-07-31</em></li>
   <li><strong>gms-server</strong> 🔒 (Private) — <em>Last active: 2026-07-18</em></li>
   <li><strong>GMS</strong> 🔒 (Private) — <em>Last active: 2026-07-18</em></li>
   <li><strong>TeraCore-BE</strong> 🔒 (Private) — <em>Last active: 2026-07-09</em></li>
