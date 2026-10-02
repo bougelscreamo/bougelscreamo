@@ -15,7 +15,7 @@ jobs:
       - name: Fetch Metrics from GitHub
         id: fetch_metrics
         env:
-          GH_TOKEN: ${{ secrets.METRIC_TOKEN }}
+          GH_TOKEN: ${{ secrets.repo-metrics }}
         run: |
           # 1. Hitung total keseluruhan repo
           TOTAL_REPOS=$(gh repo list --limit 1000 --json name --jq '. | length')
