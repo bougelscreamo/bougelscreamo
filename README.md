@@ -12,8 +12,8 @@
 <ul>
   <li><strong>LimaERP-FE</strong> 🔒 (Private) — <em>Last active: 2026-10-23</em></li>
   <li><strong>LimaERP-BE</strong> 🔒 (Private) — <em>Last active: 2026-10-23</em></li>
+  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-10-23</em></li>
   <li><strong>RWM-FE</strong> 🔒 (Private) — <em>Last active: 2026-10-22</em></li>
-  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-10-22</em></li>
   <li><strong>RWM-BE</strong> 🔒 (Private) — <em>Last active: 2026-10-18</em></li>
   <li><strong>NusaNexa-web</strong> 🔒 (Private) — <em>Last active: 2026-10-06</em></li>
   <li><strong>RWM-Agent</strong> 🔒 (Private) — <em>Last active: 2026-10-04</em></li>
