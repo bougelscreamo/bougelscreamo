@@ -10,8 +10,8 @@
 <!-- TOP_REPOS_START -->
 ### 🔥 Top 10 Active Repositories (Past Year):
 <ul>
+  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-11-07</em></li>
   <li><strong>LimaERP-FE</strong> 🔒 (Private) — <em>Last active: 2026-11-06</em></li>
-  <li><strong>bougelscreamo</strong> 🌐 (Public) — <em>Last active: 2026-11-06</em></li>
   <li><strong>RWM-BE</strong> 🔒 (Private) — <em>Last active: 2026-11-05</em></li>
   <li><strong>LimaERP-BE</strong> 🔒 (Private) — <em>Last active: 2026-11-05</em></li>
   <li><strong>RWM-FE</strong> 🔒 (Private) — <em>Last active: 2026-11-04</em></li>
