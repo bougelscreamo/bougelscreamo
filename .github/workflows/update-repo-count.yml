@@ -16,8 +16,6 @@ jobs:
         id: fetch_metrics
         env:
           GH_TOKEN: ${{ secrets.METRIC_TOKEN }}
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
         run: |
           # 1. Hitung total keseluruhan repo
           TOTAL_REPOS=$(gh repo list --limit 1000 --json name --jq '. | length')
