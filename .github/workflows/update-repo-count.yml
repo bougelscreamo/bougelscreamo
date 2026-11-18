@@ -5,12 +5,15 @@ on:
     - cron: '0 0 * * *' # Berjalan otomatis setiap hari sekali
   workflow_dispatch: # Bisa dijalankan manual
 
+permissions:
+  contents: write
+
 jobs:
   update-readme:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Diperbarui dari v3 agar mendukung Node 24
 
       - name: Fetch Metrics from GitHub
         id: fetch_metrics
@@ -28,11 +31,11 @@ jobs:
           echo -e "### 🔥 Top 10 Active Repositories (Past Year):\n<ul>" > top_repos.txt
           jq -r '.[] | [ .name, (if .isPrivate then "🔒 (Private)" else "🌐 (Public)" end), .updatedAt[0:10] ] | "  <li><strong>\(.[0])</strong> \(.[1]) — <em>Last active: \(.[2])</em></li>"' repos.json >> top_repos.txt
           echo "</ul>" >> top_repos.txt
-          
+
       - name: Update README.md
         run: |
           TOTAL_REPOS=${{ steps.fetch_metrics.outputs.TOTAL }}
-          
+
           # Update total repo
           sed -i "/<!-- REPO_COUNT_START -->/,/<!-- REPO_COUNT_END -->/c\<!-- REPO_COUNT_START -->\n📊 **Total Repositories:** $TOTAL_REPOS (including private projects)\n<!-- REPO_COUNT_END -->" README.md
 
@@ -42,7 +45,7 @@ jobs:
             /<!-- TOP_REPOS_END -->/b
             d
           }' README.md
-          
+
           # Memasukkan isi file top_repos.txt ke dalam penanda di README
           sed -i '/<!-- TOP_REPOS_START -->/r top_repos.txt' README.md
 
