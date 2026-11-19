@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5 # Diperbarui ke v5 untuk menghindari warning Node 20 internal
+        uses: actions/checkout@v5
 
       - name: Fetch Metrics from GitHub
         id: fetch_metrics
@@ -24,47 +24,63 @@ jobs:
           TOTAL_REPOS=$(gh repo list --limit 1000 --json name --jq '. | length')
           echo "TOTAL=$TOTAL_REPOS" >> $GITHUB_OUTPUT
 
-          # 2. Ambil data repo mentah dalam bentuk JSON
-          gh repo list --limit 10 --json name,updatedAt,isPrivate > repos.json
+          # 2. Ambil daftar repo lalu urutkan dari updatedAt paling baru sebelum ambil 10 teratas
+          gh repo list --limit 100 --json name,updatedAt,isPrivate \
+            | jq 'sort_by(.updatedAt) | reverse | .[:10]' > repos.json
 
-          # 3. Proses JSON menggunakan jq
-          echo -e "### 🔥 Top 10 Active Repositories (Past Year):\n<ul>" > top_repos.txt
-          jq -r '.[] | [ .name, (if .isPrivate then "🔒 (Private)" else "🌐 (Public)" end), .updatedAt[0:10] ] | "  <li><strong>\(.[0])</strong> \(.[1]) — <em>Last active: \(.[2])</em></li>"' repos.json >> top_repos.txt
-          echo "</ul>" >> top_repos.txt
+          echo "=== Debug: Top 10 Repos JSON ==="
+          cat repos.json
+
+          # 3. Proses JSON menggunakan jq dengan struktur array agar bebas error escaping
+          {
+            echo "### 🔥 Top 10 Active Repositories (Past Year):"
+            echo "<ul>"
+            jq -r '.[] | [ .name, (if .isPrivate then "🔒 (Private)" else "🌐 (Public)" end), .updatedAt[0:10] ] | "  <li><strong>\(.[0])</strong> \(.[1]) — <em>Last active: \(.[2])</em></li>"' repos.json
+            echo "</ul>"
+          } > top_repos.txt
+
+          echo "=== Debug: top_repos.txt ==="
+          cat top_repos.txt
 
       - name: Update README.md
         run: |
           TOTAL_REPOS=${{ steps.fetch_metrics.outputs.TOTAL }}
-          
-          # Debugging: Cek apakah file README.md memiliki penanda
-          if ! grep -q "<!-- REPO_COUNT_START -->" README.md; then
-            echo "Error: Penanda REPO_COUNT tidak ditemukan di README.md!"
+
+          if ! grep -q "<!-- REPO_COUNT_START -->" README.md || ! grep -q "<!-- REPO_COUNT_END -->" README.md; then
+            echo "Error: Marker REPO_COUNT tidak lengkap di README.md!"
+            exit 1
+          fi
+
+          if ! grep -q "<!-- TOP_REPOS_START -->" README.md || ! grep -q "<!-- TOP_REPOS_END -->" README.md; then
+            echo "Error: Marker TOP_REPOS tidak lengkap di README.md!"
             exit 1
           fi
 
           # Update total repo
           sed -i "/<!-- REPO_COUNT_START -->/,/<!-- REPO_COUNT_END -->/c\<!-- REPO_COUNT_START -->\n📊 **Total Repositories:** $TOTAL_REPOS (including private projects)\n<!-- REPO_COUNT_END -->" README.md
 
-          # Bersihkan area Top Repos lama
+          # Hapus isi lama di antara TOP_REPOS_START dan TOP_REPOS_END
           sed -i '/<!-- TOP_REPOS_START -->/,/<!-- TOP_REPOS_END -->/ {
             /<!-- TOP_REPOS_START -->/b
             /<!-- TOP_REPOS_END -->/b
             d
           }' README.md
-          
-          # Sisipkan isi top_repos.txt baru
+
+          # Sisipkan konten baru tepat setelah <!-- TOP_REPOS_START -->
           sed -i '/<!-- TOP_REPOS_START -->/r top_repos.txt' README.md
+
+          # Bersihkan file sementara
+          rm -f repos.json top_repos.txt
 
       - name: Commit and Push Changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          
-          # Cek apakah ada perubahan nyata pada README.md
-          #if git diff --quiet && git diff --staged --quiet; then
-          #  echo "Tidak ada perubahan data pada README.md."
-          #else
-          #  git commit -m "chore: update profile metrics and top repos"
-          #  git push
-          #fi
+
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "Tidak ada perubahan pada README.md."
+          else
+            git commit -m "chore: update profile metrics and top repos"
+            git push
+          fi
