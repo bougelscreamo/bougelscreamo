@@ -62,9 +62,9 @@ jobs:
           git add README.md
           
           # Cek apakah ada perubahan nyata pada README.md
-          if git diff --quiet && git diff --staged --quiet; then
-            echo "Tidak ada perubahan data pada README.md."
-          else
-            git commit -m "chore: update profile metrics and top repos"
-            git push
-          fi
+          #if git diff --quiet && git diff --staged --quiet; then
+          #  echo "Tidak ada perubahan data pada README.md."
+          #else
+          #  git commit -m "chore: update profile metrics and top repos"
+          #  git push
+          #fi
